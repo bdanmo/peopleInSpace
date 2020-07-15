@@ -10,20 +10,25 @@ const easterEggs = [{
   craft: "Some Ship",
   name: "Some Guy"
 }];
-
 const peopleList = document.getElementById('people');
 const btn = document.querySelector('button');
 
+async function getJSON(url) {
+  try {
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getPeopleInSpace(url) {
-  const peopleResponse = await fetch(url);
-  const peopleJSON = await peopleResponse.json();
-  peopleJSON.people.push(...easterEggs)
-  console.log(peopleJSON);
+  const peopleJSON = await getJSON(url);
+  peopleJSON.people.push(...easterEggs);
 
   const profiles = peopleJSON.people.map(async (person) => {
     const craft = person.craft;
-    const profileResponse = await fetch(wikiUrl + person.name);
-    const profileJSON = await profileResponse.json();
+    const profileJSON = await getJSON(wikiUrl + person.name);
 
     if (profileJSON.pageid) {
       return {
@@ -44,13 +49,13 @@ async function getPeopleInSpace(url) {
 }
 
 function generateHTML(data) {
-  console.log(data);
 
   function createSection() {
     const section = document.createElement('section');
     peopleList.appendChild(section);
     return section;
   }
+
   data.forEach(person => {
     //person = person.value;
     if (person.pageid) {
@@ -80,5 +85,9 @@ btn.addEventListener('click', event => {
 
   getPeopleInSpace(astrosUrl)
     .then(generateHTML)
+    .catch(e => {
+      peopleList.innerHTML = `<h3>Something went wrong!</h3>`
+      console.error(e);
+    })
     .finally(() => event.target.remove());
 });
