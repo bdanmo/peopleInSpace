@@ -1,9 +1,20 @@
 const astrosUrl = 'http://api.open-notify.org/astros.json';
 const wikiUrl = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
+const easterEggs = [{
+  craft: "Death Star",
+  name: "Darth Vader"
+}, {
+  craft: "Sputnik 2",
+  name: "Laika"
+}, {
+  craft: "Some Ship",
+  name: "Some Guy"
+}];
 const peopleList = document.getElementById('people');
 const btn = document.querySelector('button');
 
 function getWikiProfiles(data) {
+  data.people = [...data.people, ...easterEggs];
   const profiles = data.people.map(person => {
     const craft = person.craft;
     return fetch(wikiUrl + person.name)
