@@ -75,9 +75,10 @@ function generateHTML(data) {
 
 }
 
-btn.addEventListener('click', async (event) => {
+btn.addEventListener('click', event => {
   event.target.textContent = 'Loading...'
-  const profiles = await getPeopleInSpace(astrosUrl);
-  generateHTML(profiles);
-  event.target.remove();
+
+  getPeopleInSpace(astrosUrl)
+    .then(generateHTML)
+    .finally(() => event.target.remove());
 });
