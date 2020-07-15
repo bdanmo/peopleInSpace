@@ -4,6 +4,9 @@ const easterEggs = [{
   craft: "Death Star",
   name: "Darth Vader"
 }, {
+  craft: "Sputnik 2",
+  name: "Laika"
+}, {
   craft: "Decapodian Warship",
   name: "Zoidberg"
 }, {
