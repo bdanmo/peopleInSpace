@@ -7,12 +7,10 @@ const easterEggs = [{
   craft: "Sputnik 2",
   name: "Laika"
 }, {
-  craft: "Decapodian Warship",
-  name: "Zoidberg"
-}, {
   craft: "Some Ship",
   name: "Some Guy"
 }];
+
 const peopleList = document.getElementById('people');
 const btn = document.querySelector('button');
 
